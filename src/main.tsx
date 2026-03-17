@@ -9,10 +9,11 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "@/components/theme-provider";
 import { queryClient } from "@/lib/query";
 import { Toaster } from "@/components/ui/sonner";
-import { listen } from "@tauri-apps/api/event";
 import { invoke } from "@tauri-apps/api/core";
+import { listen } from "@tauri-apps/api/event";
+import { isOtoolsPluginRuntime } from "otools-plugin-sdk";
 import { message } from "@tauri-apps/plugin-dialog";
-import { exit } from "@tauri-apps/plugin-process";
+import { exitDesktopApp } from "@/lib/desktop-runtime";
 
 // 根据平台添加 body class，便于平台特定样式
 try {
@@ -57,7 +58,9 @@ async function handleConfigLoadError(
     },
   );
 
-  await exit(1);
+  if (!isOtoolsPluginRuntime()) {
+    await exitDesktopApp(1);
+  }
 }
 
 // 监听后端的配置加载错误事件：仅提醒用户并强制退出，不修改任何配置文件

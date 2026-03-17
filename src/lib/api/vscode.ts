@@ -1,4 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
+import { pickFile, saveFile } from "otools-plugin-sdk";
 import type { CustomEndpoint } from "@/types";
 import type { AppId } from "./types";
 
@@ -83,12 +84,10 @@ export const vscodeApi = {
   },
 
   async saveFileDialog(defaultName: string): Promise<string | null> {
-    return await invoke("save_file_dialog", {
-      defaultName,
-    });
+    return await saveFile(defaultName);
   },
 
   async openFileDialog(): Promise<string | null> {
-    return await invoke("open_file_dialog");
+    return await pickFile();
   },
 };

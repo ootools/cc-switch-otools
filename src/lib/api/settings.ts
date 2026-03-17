@@ -1,4 +1,17 @@
 import { invoke } from "@tauri-apps/api/core";
+import {
+  isOtoolsPluginRuntime,
+  openExternal,
+  openPath,
+  pickDirectory,
+  pickFile,
+  saveFile,
+} from "otools-plugin-sdk";
+import {
+  checkForUpdatesOrOpenRelease,
+  invokeDesktopCommandOr,
+  restartDesktopApp,
+} from "@/lib/desktop-runtime";
 import type { Settings, WebDavSyncSettings, RemoteSnapshotInfo } from "@/types";
 import type { AppId } from "./types";
 
@@ -28,11 +41,13 @@ export const settingsApi = {
   },
 
   async restart(): Promise<boolean> {
-    return await invoke("restart_app");
+    return await restartDesktopApp();
   },
 
   async checkUpdates(): Promise<void> {
-    await invoke("check_for_updates");
+    await checkForUpdatesOrOpenRelease(
+      "https://github.com/farion1231/cc-switch/releases/latest",
+    );
   },
 
   async isPortable(): Promise<boolean> {
@@ -44,11 +59,16 @@ export const settingsApi = {
   },
 
   async openConfigFolder(appId: AppId): Promise<void> {
+    if (isOtoolsPluginRuntime()) {
+      const path = await settingsApi.getConfigDir(appId);
+      openPath(path);
+      return;
+    }
     await invoke("open_config_folder", { app: appId });
   },
 
   async selectConfigDirectory(defaultPath?: string): Promise<string | null> {
-    return await invoke("pick_directory", { defaultPath });
+    return await pickDirectory({ defaultPath });
   },
 
   async getClaudeCodeConfigPath(): Promise<string> {
@@ -60,6 +80,11 @@ export const settingsApi = {
   },
 
   async openAppConfigFolder(): Promise<void> {
+    if (isOtoolsPluginRuntime()) {
+      const path = await settingsApi.getAppConfigPath();
+      openPath(path);
+      return;
+    }
     await invoke("open_app_config_folder");
   },
 
@@ -99,11 +124,11 @@ export const settingsApi = {
   },
 
   async saveFileDialog(defaultName: string): Promise<string | null> {
-    return await invoke("save_file_dialog", { defaultName });
+    return await saveFile(defaultName);
   },
 
   async openFileDialog(): Promise<string | null> {
-    return await invoke("open_file_dialog");
+    return await pickFile();
   },
 
   async exportConfigToFile(filePath: string): Promise<ConfigTransferResult> {
@@ -170,6 +195,10 @@ export const settingsApi = {
     } catch {
       throw new Error("Invalid URL");
     }
+    if (isOtoolsPluginRuntime()) {
+      openExternal(url);
+      return;
+    }
     await invoke("open_external", { url });
   },
 
@@ -197,7 +226,11 @@ export const settingsApi = {
       wsl_distro: string | null;
     }>
   > {
-    return await invoke("get_tool_versions", { tools, wslShellByTool });
+    return await invokeDesktopCommandOr(
+      "get_tool_versions",
+      { tools, wslShellByTool },
+      [],
+    );
   },
 
   async getRectifierConfig(): Promise<RectifierConfig> {

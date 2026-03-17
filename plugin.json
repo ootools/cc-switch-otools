@@ -1,0 +1,27 @@
+{
+  "uuid": "cc-switch-otools",
+  "packid": "cc-switch-otools",
+  "displayName": "CC Switch O",
+  "developerName": "ly",
+  "summary": "Claude Code、Codex、Gemini CLI 与 OpenCode/OpenClaw 的统一配置与工作流管理面板。",
+  "version": "3.12.3",
+  "icon": "🔀",
+  "key": [
+    "cc-switch",
+    "cc switch",
+    "claude code",
+    "codex",
+    "gemini",
+    "openclaw",
+    "opencode"
+  ],
+  "entry": "dist/index.html",
+  "devUrl": "http://127.0.0.1:3000",
+  "openInBrowser": false,
+  "screenshots": [],
+  "native": {
+    "enabled": true,
+    "libDir": "lib",
+    "autoReload": true
+  }
+}

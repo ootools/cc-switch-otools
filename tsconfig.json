@@ -16,7 +16,9 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "otools-plugin-sdk": ["otools-plugin-sdk/src/index.ts"],
+      "otools-plugin-sdk/*": ["otools-plugin-sdk/src/*"]
     },
     "types": ["vitest/globals"]
   },

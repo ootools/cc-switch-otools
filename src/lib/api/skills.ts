@@ -1,4 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
+import { pickZipFile } from "otools-plugin-sdk";
 
 import type { AppId } from "@/lib/api/types";
 
@@ -199,7 +200,7 @@ export const skillsApi = {
 
   /** 打开 ZIP 文件选择对话框 */
   async openZipFileDialog(): Promise<string | null> {
-    return await invoke("open_zip_file_dialog");
+    return await pickZipFile();
   },
 
   /** 从 ZIP 文件安装 Skills */

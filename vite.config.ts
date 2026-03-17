@@ -2,10 +2,12 @@ import path from "node:path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { codeInspectorPlugin } from "code-inspector-plugin";
+import { otoolsTauriShimPlugin } from "otools-plugin-sdk/vite";
 
 export default defineConfig(({ command }) => ({
   root: "src",
   plugins: [
+    otoolsTauriShimPlugin(),
     command === "serve" &&
       codeInspectorPlugin({
         bundler: "vite",
@@ -29,4 +31,3 @@ export default defineConfig(({ command }) => ({
   clearScreen: false,
   envPrefix: ["VITE_", "TAURI_"],
 }));
-

@@ -29,7 +29,9 @@ mod toolsearch_patch;
 mod tray;
 mod usage_script;
 
-pub use app_config::{AppType, InstalledSkill, McpApps, McpServer, MultiAppConfig, SkillApps};
+pub use app_config::{
+    AppType, InstalledSkill, McpApps, McpServer, MultiAppConfig, SkillApps, UnmanagedSkill,
+};
 pub use codex_config::{get_codex_auth_path, get_codex_config_path, write_codex_live_atomic};
 pub use commands::open_provider_terminal;
 pub use commands::*;
@@ -37,17 +39,32 @@ pub use config::{get_claude_mcp_path, get_claude_settings_path, read_json_file};
 pub use database::Database;
 pub use deeplink::{import_provider_from_deeplink, parse_deeplink_url, DeepLinkImportRequest};
 pub use error::AppError;
+pub use prompt::Prompt;
+pub use services::env_checker::EnvConflict;
+pub use services::env_manager::BackupInfo;
 pub use mcp::{
     import_from_claude, import_from_codex, import_from_gemini, remove_server_from_claude,
     remove_server_from_codex, remove_server_from_gemini, sync_enabled_to_claude,
     sync_enabled_to_codex, sync_enabled_to_gemini, sync_single_server_to_claude,
     sync_single_server_to_codex, sync_single_server_to_gemini,
 };
-pub use provider::{Provider, ProviderMeta};
+pub use openclaw_config::{
+    OpenClawAgentsDefaults, OpenClawDefaultModel, OpenClawEnvConfig, OpenClawHealthWarning,
+    OpenClawModelCatalogEntry, OpenClawToolsConfig, OpenClawWriteOutcome,
+};
+pub use provider::{Provider, ProviderMeta, UniversalProvider};
 pub use services::{
+    skill::{DiscoverableSkill, Skill, SkillBackupEntry, SkillRepo, SkillUninstallResult},
     skill::{migrate_skills_to_ssot, ImportSkillSelection},
-    ConfigService, EndpointLatency, McpService, PromptService, ProviderService, ProxyService,
-    SkillService, SpeedtestService,
+    ConfigService, DailyStats, EndpointLatency, LogFilters, McpService, ModelStats, PaginatedLogs,
+    OmoService, PromptService, ProviderLimitStatus, ProviderService, ProviderSortUpdate,
+    ProviderStats, ProxyService, RequestLogDetail, SkillService, SpeedtestService, SwitchResult,
+    UsageSummary,
+};
+pub use proxy::{types::*, CircuitBreakerConfig, CircuitBreakerStats};
+pub use services::omo::{SLIM as OMO_SLIM, STANDARD as OMO_STANDARD};
+pub use services::provider::{
+    import_openclaw_providers_from_live, import_opencode_providers_from_live,
 };
 pub use settings::{update_settings, AppSettings};
 pub use store::AppState;
