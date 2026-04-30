@@ -1,6 +1,6 @@
 <div align="center">
 
-# CC Switch
+# CC Switch Otools
 
 ### The All-in-One Manager for Claude Code, Codex, Gemini CLI, OpenCode & OpenClaw
 
