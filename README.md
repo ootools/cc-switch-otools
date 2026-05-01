@@ -467,6 +467,12 @@ pnpm test:unit --coverage
 │       ├── session_manager/    # Session management
 │       ├── deeplink/           # Deep Link handling
 │       └── mcp/                # MCP sync module
+├── otools/                     # OTools plugin adapter
+│   ├── plugin.json             # OTools manifest
+│   ├── dist/                   # Plugin web bundle output
+│   ├── lib/                    # Native library output
+│   ├── native/                 # OTools native bridge crate
+│   └── scripts/                # OTools build scripts
 ├── tests/                      # Frontend tests
 └── assets/                     # Screenshots & partner resources
 ```

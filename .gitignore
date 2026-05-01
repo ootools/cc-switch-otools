@@ -1,11 +1,11 @@
 node_modules/
-dist/
+otools/dist/
 otools-plugin-sdk/dist/
-native/target/
-lib/*.dylib
-lib/*.so
-lib/*.dll
-!lib/.gitkeep
+otools/native/target/
+otools/lib/*.dylib
+otools/lib/*.so
+otools/lib/*.dll
+!otools/lib/.gitkeep
 release/
 .DS_Store
 *.log

@@ -16,7 +16,7 @@ export default defineConfig(({ command }) => ({
   ].filter(Boolean),
   base: "./",
   build: {
-    outDir: "../dist",
+    outDir: "../otools/dist",
     emptyOutDir: true,
   },
   server: {

@@ -470,6 +470,12 @@ pnpm test:unit --coverage
 │       ├── session_manager/    # 会话管理
 │       ├── deeplink/           # Deep Link 处理
 │       └── mcp/                # MCP 同步模块
+├── otools/                     # OTools 插件适配层
+│   ├── plugin.json             # OTools 清单
+│   ├── dist/                   # 插件前端构建输出
+│   ├── lib/                    # Native 动态库输出
+│   ├── native/                 # OTools Native 桥接工程
+│   └── scripts/                # OTools 构建脚本
 ├── tests/                      # 前端测试
 └── assets/                     # 截图 & 合作商资源
 ```
